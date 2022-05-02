@@ -1,0 +1,26 @@
+{
+  "name": "la-moara",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/branzeiradu/sv.la-moara.course.git"
+  },
+  "author": "Branzei Radu",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/branzeiradu/sv.la-moara.course/issues"
+  },
+  "homepage": "https://github.com/branzeiradu/sv.la-moara.course#readme",
+  "dependencies": {
+    "express": "^4.18.1"
+  },
+  "devDependencies": {
+    "dotenv": "^16.0.0"
+  }
+}
