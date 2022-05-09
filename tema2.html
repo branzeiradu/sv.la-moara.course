@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+
+    <title>Homework 2</title>
+    <style>
+        .text {
+            font-weight: 700;
+            margin-top: 2rem;
+            font-size: 1.4rem;
+            font-weight: 700;
+            font-family: 'Lucida Sans Unicode', Verdana, sans-serif;
+        }
+
+        #lucky-emoji-btn {
+            padding: 10px;
+            font-weight: 700;
+            cursor: pointer;
+
+            border: 2px solid black;
+            background-color: white;
+            color: black;
+        }
+
+        #lucky-emoji-btn:hover,
+        #lucky-emoji-btn:active {
+            border-color: 2px solid white;
+            background-color: black;
+            color: white;
+        }
+
+        #lucky-emoji-btn:active {
+            color: grey;
+        }
+
+        #lucky {
+            display: inline-block;
+        }
+    </style>
+</head>
+
+<body>
+    <script>
+
+        console.log("Ex: 1. Creați o funcție care primește ca și parametru un număr și returnează dublul său dacă numărul primit este impar, altfel returnează numărul scăzut cu 2 dacă este par. \n Afișați rezultatul în consolă.");
+        const upDownFn = function (nr) {
+            if (isNaN(nr)) {
+                return;
+            }
+            const isEven = (nr % 2 == 0);
+            return (isEven) ? (nr - 2) : (nr * 2);
+        };
+
+        const arr = Array.from(Array(12).keys());
+        arr.forEach(nr => {
+            console.log(`nr = ${nr}, upRoarFn(${nr}) = ${upDownFn(nr)}`);
+        });
+
+        console.log("Ex: 2. Creați o funcție care stochează intr-un array doar numerele prime dintr-un array primit ca si parametru. Parcurgeți array-ul folosind un “for loop”.");
+        const primeArr = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+        //const testArr = [2,3,5,7];
+        const checkPrimeFn = (nr) => {
+            if (isNaN(nr)) false;//check if number first.
+            if (Math.floor(nr) !== nr) return false;//check if it is integer type
+
+            if (nr <= 1) return false;//check positive numbers different than 1. sorry 1
+
+            if (nr == 2 || nr == 3) return true;//obviously both are primes
+            if (nr % 2 == 0 || nr % 3 == 0) return false;// if it is multiple of 2 or 3 --> not a prime
+
+            //check all numbers until you reach sqrt of nr
+            for (let x = 2; x <= Math.sqrt(nr); x++) {
+                if (nr % x == 0) return false;
+            }
+            //if no divisor found, then prime!
+            return true;
+        };
+
+        console.assert(checkPrimeFn(0) == false);
+        console.assert(checkPrimeFn(1) == false);
+        console.assert(checkPrimeFn(2) == true);
+        console.assert(checkPrimeFn(3) == true);
+        console.assert(checkPrimeFn(4) == false);
+        console.assert(checkPrimeFn(5) == true);
+        console.assert(checkPrimeFn(6) == false);
+        console.assert(checkPrimeFn(7) == true);
+        console.assert(checkPrimeFn(8) == false);
+        console.assert(checkPrimeFn(9) == false);
+        console.assert(checkPrimeFn(10) == false);
+        console.assert(checkPrimeFn(11) == true);
+        console.assert(checkPrimeFn(12) == false);
+
+        const extractPrimeFn = function (arr) {
+            const isArray = arr instanceof Array;
+            if (!isArray) {
+                return arr;
+            }
+            const primeArr = []; //intentionally not using filter fn ¯\_(ツ)_/¯
+            for (key in arr) {
+                const current = arr[key];
+                const isPrime = checkPrimeFn(current);
+                if (isPrime) {
+                    primeArr.push(current);
+                }
+            }
+            return primeArr;
+        };
+        console.log(`Given array: ${primeArr}\nPrime array: ${extractPrimeFn(primeArr)}`);
+        const filled = Array.from(Array(12).keys());
+        console.log(`Given array: ${filled}\nPrime array: ${extractPrimeFn(filled)}`);
+
+
+        console.log("Ex: 3. Creați o funcție care stochează intr-un array doar strings dintr-un array primit ca si parametru. Parcurgeți array-ul folosind “forEach”. Afișați rezultatul în consola.");
+        const saveStrings = function (thingsArr) {
+            const stringArr = [];
+            thingsArr.forEach((thingy) => {
+                if (typeof thingy === "string") {
+                    stringArr.push(thingy);
+                }
+            });
+            return stringArr;
+        }
+
+        console.assert(JSON.stringify(saveStrings([1, '1', 'salut', 2, 6, true, 'true'])) == JSON.stringify(['1', 'salut', 'true']));
+        console.assert(JSON.stringify(saveStrings([1, 2, 3, 4])) == JSON.stringify([]));
+        console.assert(JSON.stringify(saveStrings(['1', '2', '3', '4'])) == JSON.stringify(['1', '2', '3', '4']));
+
+
+        console.log("Ex: 4. Creați o funcție care adună cifrele impare ale unui număr primit ca și parametru de tip string folosind  “for loop” si keyword-ul “continue”. ");
+        function addDigits(nrString) {
+            if (typeof nrString != "string") return 0;
+            if (isNaN(nrString)) return 0;
+
+            let sum = 0;
+            for (key in nrString) {
+                if (nrString[key] % 2 == 0) continue;
+                sum -= nrString[key];
+                //sum += parseInt(nrString[key]);
+            }
+
+            return -sum;
+            //return sum
+        }
+
+        console.log("addDigits(\"1523\") = " + addDigits("1523"));
+        console.assert(addDigits("15das23") == 0);
+        console.assert(addDigits("asd") == 0);
+        console.assert(addDigits(NaN) == 0);
+        console.assert(addDigits({}) == 0);
+        console.assert(addDigits([]) == 0);
+
+        console.log("Ex: 5. Creați un switch cu cel puțin 5 case-uri din care cel puțin 2 să aibă același rezultat, după exemplul prezentat la curs. ");
+        console.log("Emoji Explainer For Highly Functioning Autists:");
+        document.write("<h2 class='text'> Emoji Explainer For Highly Functioning Autists </h2>");
+        const emojiExplainerFn = () => {
+            const emojiArr = ["😀", "😁", "😂", "😱", "💀", "😄", "😋", "😎", "😍", "😴"];
+            const explainArr = ["happy", "proud", "amused", "terrified", "dead", "happy", "mischievous", "cool", "in-love", "sleepy"];
+            const getMeaning = index => {
+                switch (index) {
+                    case 5:
+                    case 0:
+                        meaning = explainArr[0];
+                        break;
+                    case 1:
+                        meaning = explainArr[1];
+                        break;
+                    case 2:
+                        meaning = explainArr[2];
+                        break;
+                    case 3:
+                        meaning = explainArr[3];
+                        break;
+                    case 4:
+                        meaning = explainArr[4];
+                        break;
+                    default:
+                        meaning = explainArr[index];
+                        break;
+                }
+
+                return meaning;
+            };
+            const handler = function () {
+                const luckyIndex = Math.floor(Math.random() * 10);
+                const luckyEmoji = `Your lucky emoji of the moment is: ${emojiArr[luckyIndex]} ${getMeaning(luckyIndex)}`;
+                console.log(luckyEmoji);
+                document.querySelector("#lucky").innerHTML = luckyEmoji;
+            };
+            const handlerName = "yourMomentsLuckyEmoji";
+            (function init() {
+                document.write(`<section>`);
+                for (let i = 0; i < emojiArr.length; i++) {
+                    const meaning = getMeaning(i);
+                    document.write(`${emojiArr[i]} means <u>${meaning}</u>`);
+                    console.log(`${emojiArr[i]} means "${meaning}"`);
+                    document.write(`<br/>`);
+                }
+                document.write(`</section>`);
+                document.write(`<span id="lucky" class="text"></span>`);
+                document.write(`</section>`);
+                document.write(`<br><br><button id='lucky-emoji-btn' onclick='${handlerName}()'>Hit me baby one more time!</button>`);
+            })();
+            window[handlerName] = handler;
+            handler();
+            return handler;
+        };
+        emojiExplainerFn();
+
+
+    </script>
+</body>
+
+</html>
